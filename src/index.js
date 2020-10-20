@@ -1,21 +1,25 @@
-import { logA, log } from './lib'
-import pkg from '../package.json'
-import answer from 'the-answer';
-import _ from 'lodash'
-import $ from 'jquery';
-import App from './App.vue'
+import {version} from '../package.json'
+import JdwlDemo from '../packages/jdwl-demo/index.js'
+
+const components = [
+  JdwlDemo,
+]
+
+const install = function(Vue, opts = {}) {
+  if (install.installed) return;
+  components.forEach(component => {
+    Vue.component(component.name, component);
+  })
+  install.installed = true;
+};
 
 
-logA()
-log(pkg.version)
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
 
-const es6 = 'es666'
-log(`this is ${es6}`)
-console.log('the answer is ' + answer);
-console.log(`the answer is ${answer}`);
-
-// 不使用不会被构建到产物中
-// log($)
-// log(_)
-
-export default App
+export default {
+  version: version,
+  install,
+  ...components
+}
