@@ -28,7 +28,7 @@ console.log(
 );
 console.log(`-------------------------${process.env.AAA}--------------------`);
 
-export default {
+const config = {
   input: "src/index.js",
   external: ["lodash", "jquery"],
   output: {
@@ -90,3 +90,6 @@ export default {
     filesize(),
   ],
 };
+
+
+export default config
